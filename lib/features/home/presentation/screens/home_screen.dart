@@ -12,6 +12,7 @@ import '../../../../shared/widgets/glass_card.dart';
 import '../../../tasks/application/providers/task_providers.dart';
 import '../../../tasks/domain/entities/task_status.dart';
 import '../../../tasks/domain/entities/task.dart';
+import '../../../small_steps/application/providers/small_step_providers.dart';
 import '../../../../core/result/app_result.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -38,6 +39,8 @@ class HomeScreen extends ConsumerWidget {
             AiSuggestionCard(
               suggestion: l10n.homeAISuggestion,
             ),
+            const SizedBox(height: AppSpacing.md),
+            _buildStepProgressSummary(context, ref, todayTasksAsync),
             const SizedBox(height: AppSpacing.sm),
             GlassCard(
               onTap: () => context.push('/tasks'),
@@ -56,7 +59,7 @@ class HomeScreen extends ConsumerWidget {
                 child: Text(l10n.homeViewAll),
               ),
             ),
-            _buildTodayTasks(context, todayTasksAsync),
+            _buildTodayTasks(context, ref, todayTasksAsync),
           ],
         ),
       ),
@@ -110,8 +113,90 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
+  Widget _buildStepProgressSummary(
+    BuildContext context,
+    WidgetRef ref,
+    AsyncValue<AppResult<List<Task>>> todayTasksAsync,
+  ) {
+    final taskIds = todayTasksAsync.maybeWhen(
+      data: (result) => result is AppSuccess<List<Task>>
+          ? result.data.map((t) => t.id).toList()
+          : <String>[],
+      orElse: () => <String>[],
+    );
+
+    if (taskIds.isEmpty) return const SizedBox.shrink();
+
+    final stepsMapAsync = ref.watch(stepsForTasksProvider(taskIds));
+    final l10n = AppLocalizations.of(context)!;
+
+    return stepsMapAsync.when(
+      data: (stepsMap) {
+        int totalSteps = 0;
+        int completedSteps = 0;
+        int taskCount = 0;
+        for (final entry in stepsMap.entries) {
+          if (entry.value.isNotEmpty) {
+            taskCount++;
+            totalSteps += entry.value.length;
+            completedSteps += entry.value.where((s) => s.isCompleted).length;
+          }
+        }
+        if (totalSteps == 0) return const SizedBox.shrink();
+        final progress = completedSteps / totalSteps;
+
+        return GlassCard(
+          margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(AppSpacing.sm),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withAlpha(26),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(Icons.layers, color: AppColors.primary, size: 20),
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(l10n.smallStepsAppBar,
+                            style: Theme.of(context).textTheme.titleMedium),
+                        Text(
+                          '$completedSteps/$totalSteps $l10n.smallStepsProgress $taskCount ${l10n.homeTodayTasks}',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.sm),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: LinearProgressIndicator(
+                  value: progress,
+                  minHeight: 6,
+                  backgroundColor: Colors.grey[300],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      error: (_, __) => const SizedBox.shrink(),
+      loading: () => const SizedBox.shrink(),
+    );
+  }
+
   Widget _buildTodayTasks(
     BuildContext context,
+    WidgetRef ref,
     AsyncValue<AppResult<List<Task>>> todayTasksAsync,
   ) {
     return todayTasksAsync.when(
@@ -140,7 +225,7 @@ class HomeScreen extends ConsumerWidget {
                       priority: task.priority.label,
                       isCompleted: task.status == TaskStatus.done,
                       onTap: () => context.push('/tasks/${task.id}/edit'),
-                      onStepsTap: () => context.push('/tasks/${task.id}/steps?title=${Uri.encodeComponent(task.title)}'),
+                      onStepsTap: () => context.push('/tasks/${task.id}/steps?title=${Uri.encodeComponent(task.title)}&subject=${Uri.encodeComponent(task.subject ?? '')}'),
                     ))
                 .toList(),
           );

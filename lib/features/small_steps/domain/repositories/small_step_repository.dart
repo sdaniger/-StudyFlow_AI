@@ -3,6 +3,7 @@ import '../entities/small_step.dart';
 
 abstract class SmallStepRepository {
   Future<AppResult<List<SmallStep>>> getStepsForTask(String taskId);
+  Future<AppResult<Map<String, List<SmallStep>>>> getStepsForTasks(List<String> taskIds);
   Future<AppResult<SmallStep>> createStep(SmallStep step);
   Future<AppResult<SmallStep>> updateStep(SmallStep step);
   Future<AppResult<void>> deleteStep(String stepId);

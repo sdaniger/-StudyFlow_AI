@@ -12,6 +12,7 @@ class TaskTile extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onToggleComplete;
   final VoidCallback? onStepsTap;
+  final int stepCount;
 
   const TaskTile({
     super.key,
@@ -22,6 +23,7 @@ class TaskTile extends StatelessWidget {
     this.onTap,
     this.onToggleComplete,
     this.onStepsTap,
+    this.stepCount = 0,
   });
 
   @override
@@ -76,6 +78,26 @@ class TaskTile extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   color: _priorityColor(priority!),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          const SizedBox(width: 4),
+          if (stepCount > 0)
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.sm,
+                vertical: AppSpacing.xs,
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withAlpha(26),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                '$stepCount',
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.primary,
                   fontWeight: FontWeight.w500,
                 ),
               ),

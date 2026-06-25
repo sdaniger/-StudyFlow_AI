@@ -63,7 +63,7 @@ class TaskListScreen extends ConsumerWidget {
                   onToggleComplete: () {
                     ref.read(taskControllerProvider).completeTask(task);
                   },
-                  onStepsTap: () => context.push('/tasks/${task.id}/steps?title=${Uri.encodeComponent(task.title)}'),
+                  onStepsTap: () => context.push('/tasks/${task.id}/steps?title=${Uri.encodeComponent(task.title)}&subject=${Uri.encodeComponent(task.subject ?? '')}'),
                 );
               },
             );

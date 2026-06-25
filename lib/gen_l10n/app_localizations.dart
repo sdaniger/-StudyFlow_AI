@@ -1145,6 +1145,36 @@ abstract class AppLocalizations {
   /// **'Break into 3 steps'**
   String get smallStepTileTooltip;
 
+  /// No description provided for @smallStepCountBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps {count}'**
+  String smallStepCountBadge(Object count);
+
+  /// No description provided for @smallStepEditHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit step'**
+  String get smallStepEditHint;
+
+  /// No description provided for @smallStepEditSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get smallStepEditSave;
+
+  /// No description provided for @smallStepEditCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get smallStepEditCancel;
+
+  /// No description provided for @smallStepAiBreakdownToast.
+  ///
+  /// In en, this message translates to:
+  /// **'AI breakdown coming soon!'**
+  String get smallStepAiBreakdownToast;
+
   /// No description provided for @taskBreakdownSuggestion.
   ///
   /// In en, this message translates to:

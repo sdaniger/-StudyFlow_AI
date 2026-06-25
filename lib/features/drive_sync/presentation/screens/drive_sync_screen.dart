@@ -9,7 +9,6 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/result/app_result.dart';
 import '../../../../shared/widgets/glass_container.dart';
-
 import '../../../../shared/widgets/drive_sync_status_card.dart';
 
 class DriveSyncScreen extends ConsumerWidget {
@@ -17,11 +16,12 @@ class DriveSyncScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final statusAsync = ref.watch(driveSyncStatusProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.driveAppBarTitle),
+        title: Text(l10n.driveAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -35,20 +35,23 @@ class DriveSyncScreen extends ConsumerWidget {
                 if (result is AppSuccess<DriveSyncStatus>) {
                   final status = result.data;
                   return DriveSyncStatusCard(
-                    status: status.statusMessage ?? AppLocalizations.of(context)!.driveStatusReady,
+                    status: status.statusMessage ?? l10n.driveStatusReady,
                     lastSynced: status.lastBackupAt?.toString(),
-                    onBackup: () => _handleBackup(context, ref),
-                    onRestore: () => _handleRestore(context, ref),
+                    isConnected: status.isConnected,
+                    onBackup:
+                        status.isConnected ? () => _handleBackup(context, ref) : null,
+                    onRestore:
+                        status.isConnected ? () => _handleRestore(context, ref) : null,
                   );
                 }
                 return const SizedBox.shrink();
               },
               loading: () => DriveSyncStatusCard(
-                status: AppLocalizations.of(context)!.driveStatusChecking,
+                status: l10n.driveStatusChecking,
                 isSyncing: true,
               ),
               error: (_, __) => DriveSyncStatusCard(
-                status: AppLocalizations.of(context)!.driveStatusError,
+                status: l10n.driveStatusError,
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -62,14 +65,14 @@ class DriveSyncScreen extends ConsumerWidget {
                           color: AppColors.primary, size: 20),
                       const SizedBox(width: AppSpacing.sm),
                       Text(
-                        AppLocalizations.of(context)!.driveSectionAbout,
+                        l10n.driveSectionAbout,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),
                   const SizedBox(height: AppSpacing.md),
                   Text(
-                    AppLocalizations.of(context)!.driveDescription,
+                    l10n.driveDescription,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
@@ -106,9 +109,7 @@ class DriveSyncScreen extends ConsumerWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.driveRestoreTitle),
-        content: Text(
-          AppLocalizations.of(context)!.driveRestoreMessage,
-        ),
+        content: Text(AppLocalizations.of(context)!.driveRestoreMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),

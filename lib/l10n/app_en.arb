@@ -201,6 +201,11 @@
   "smallStepsAiBreakdown": "AI Breakdown",
   "smallStepsAdded": "Steps added to task!",
   "smallStepTileTooltip": "Break into 3 steps",
+  "smallStepCountBadge": "Steps {count}",
+  "smallStepEditHint": "Edit step",
+  "smallStepEditSave": "Save",
+  "smallStepEditCancel": "Cancel",
+  "smallStepAiBreakdownToast": "AI breakdown coming soon!",
 
   "taskBreakdownSuggestion": "Break this task into small steps to make it more manageable. Small steps build momentum!"
 }

@@ -8,6 +8,7 @@ class DriveSyncStatusCard extends StatelessWidget {
   final String status;
   final String? lastSynced;
   final bool isSyncing;
+  final bool isConnected;
   final VoidCallback? onBackup;
   final VoidCallback? onRestore;
 
@@ -16,6 +17,7 @@ class DriveSyncStatusCard extends StatelessWidget {
     required this.status,
     this.lastSynced,
     this.isSyncing = false,
+    this.isConnected = false,
     this.onBackup,
     this.onRestore,
   });
@@ -36,7 +38,11 @@ class DriveSyncStatusCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(
-                  isSyncing ? Icons.sync : Icons.cloud_done,
+                  isSyncing
+                      ? Icons.sync
+                      : isConnected
+                          ? Icons.cloud_done
+                          : Icons.cloud_off,
                   color: _statusColor,
                   size: 20,
                 ),

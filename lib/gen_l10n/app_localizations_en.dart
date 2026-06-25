@@ -534,5 +534,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get smallStepTileTooltip => 'Break into 3 steps';
 
   @override
+  String smallStepCountBadge(Object count) {
+    return 'Steps $count';
+  }
+
+  @override
+  String get smallStepEditHint => 'Edit step';
+
+  @override
+  String get smallStepEditSave => 'Save';
+
+  @override
+  String get smallStepEditCancel => 'Cancel';
+
+  @override
+  String get smallStepAiBreakdownToast => 'AI breakdown coming soon!';
+
+  @override
   String get taskBreakdownSuggestion => 'Break this task into small steps to make it more manageable. Small steps build momentum!';
 }

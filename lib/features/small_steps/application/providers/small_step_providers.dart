@@ -7,7 +7,10 @@ import '../../domain/usecases/get_steps_for_task.dart';
 import '../../domain/usecases/create_small_step.dart';
 import '../../domain/usecases/toggle_small_step.dart';
 import '../../domain/usecases/delete_small_step.dart';
+import '../../domain/usecases/reorder_small_steps.dart';
+import '../../domain/usecases/ai_breakdown_steps.dart';
 import '../../../../core/result/app_result.dart';
+import '../../../ai_planner/application/providers/ai_planner_providers.dart';
 
 final smallStepRepositoryProvider = Provider<SmallStepRepository>((ref) {
   return InMemorySmallStepRepository();
@@ -29,6 +32,17 @@ final deleteSmallStepProvider = Provider<DeleteSmallStep>((ref) {
   return DeleteSmallStep(ref.watch(smallStepRepositoryProvider));
 });
 
+final reorderStepsProvider = Provider<ReorderSmallSteps>((ref) {
+  return ReorderSmallSteps(ref.watch(smallStepRepositoryProvider));
+});
+
+final aiBreakdownStepsProvider = Provider<AiBreakdownSteps>((ref) {
+  return AiBreakdownSteps(
+    ref.watch(smallStepRepositoryProvider),
+    ref.watch(aiPlannerRepositoryProvider),
+  );
+});
+
 final stepsForTaskProvider = FutureProvider.autoDispose.family<List<SmallStep>, String>((ref, taskId) async {
   final useCase = ref.watch(getStepsForTaskProvider);
   final result = await useCase(taskId);
@@ -36,6 +50,15 @@ final stepsForTaskProvider = FutureProvider.autoDispose.family<List<SmallStep>, 
     return result.data;
   }
   return [];
+});
+
+final stepsForTasksProvider = FutureProvider.autoDispose.family<Map<String, List<SmallStep>>, List<String>>((ref, taskIds) async {
+  final repo = ref.watch(smallStepRepositoryProvider);
+  final result = await repo.getStepsForTasks(taskIds);
+  if (result is AppSuccess<Map<String, List<SmallStep>>>) {
+    return result.data;
+  }
+  return {};
 });
 
 final smallStepControllerProvider = StateNotifierProvider.family<SmallStepController, AsyncValue<List<SmallStep>>, String>((ref, taskId) {
@@ -85,5 +108,48 @@ class SmallStepController extends StateNotifier<AsyncValue<List<SmallStep>>> {
     final delete = _ref.read(deleteSmallStepProvider);
     final result = await delete(stepId);
     if (result is AppSuccess) _loadSteps();
+  }
+
+  Future<void> updateStep(String stepId, String newTitle) async {
+    final repo = _ref.read(smallStepRepositoryProvider);
+    final current = state.maybeWhen(data: (d) => d.firstWhere((s) => s.id == stepId), orElse: () => null);
+    if (current == null) return;
+    final updated = current.copyWith(title: newTitle, updatedAt: DateTime.now());
+    final result = await repo.updateStep(updated);
+    if (result is AppSuccess) _loadSteps();
+  }
+
+  Future<void> reorderSteps(int oldIndex, int newIndex) async {
+    final steps = state.maybeWhen(data: (d) => List<SmallStep>.from(d), orElse: () => <SmallStep>[]);
+    if (steps.isEmpty) return;
+    final item = steps.removeAt(oldIndex);
+    steps.insert(newIndex > oldIndex ? newIndex - 1 : newIndex, item);
+    final ids = steps.map((s) => s.id).toList();
+    final reorder = _ref.read(reorderStepsProvider);
+    final result = await reorder(taskId, ids);
+    if (result is AppSuccess) _loadSteps();
+  }
+
+  Future<void> updateStepNotes(String stepId, String notes) async {
+    final repo = _ref.read(smallStepRepositoryProvider);
+    final current = state.maybeWhen(
+      data: (d) => d.firstWhere((s) => s.id == stepId),
+      orElse: () => null,
+    );
+    if (current == null) return;
+    final updated = current.copyWith(notes: notes, updatedAt: DateTime.now());
+    final result = await repo.updateStep(updated);
+    if (result is AppSuccess) _loadSteps();
+  }
+
+  Future<void> aiBreakdown(String taskTitle, String? subject) async {
+    final useCase = _ref.read(aiBreakdownStepsProvider);
+    state = const AsyncValue.loading();
+    final result = await useCase(taskId, taskTitle, subject);
+    if (result is AppSuccess) {
+      _loadSteps();
+    } else if (result is AppFailure<List<SmallStep>>) {
+      state = AsyncValue.error(result.error, StackTrace.current);
+    }
   }
 }

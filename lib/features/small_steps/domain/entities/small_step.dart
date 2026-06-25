@@ -4,6 +4,7 @@ class SmallStep extends Equatable {
   final String id;
   final String taskId;
   final String title;
+  final String? notes;
   final bool isCompleted;
   final int order;
   final DateTime createdAt;
@@ -13,6 +14,7 @@ class SmallStep extends Equatable {
     required this.id,
     required this.taskId,
     required this.title,
+    this.notes,
     this.isCompleted = false,
     this.order = 0,
     required this.createdAt,
@@ -23,6 +25,7 @@ class SmallStep extends Equatable {
     String? id,
     String? taskId,
     String? title,
+    String? notes,
     bool? isCompleted,
     int? order,
     DateTime? createdAt,
@@ -32,6 +35,7 @@ class SmallStep extends Equatable {
       id: id ?? this.id,
       taskId: taskId ?? this.taskId,
       title: title ?? this.title,
+      notes: notes ?? this.notes,
       isCompleted: isCompleted ?? this.isCompleted,
       order: order ?? this.order,
       createdAt: createdAt ?? this.createdAt,
@@ -40,5 +44,6 @@ class SmallStep extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, taskId, title, isCompleted, order, createdAt, updatedAt];
+  List<Object?> get props =>
+      [id, taskId, title, notes, isCompleted, order, createdAt, updatedAt];
 }

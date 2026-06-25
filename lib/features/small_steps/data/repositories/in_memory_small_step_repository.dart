@@ -24,6 +24,18 @@ class InMemorySmallStepRepository implements SmallStepRepository {
   }
 
   @override
+  Future<AppResult<Map<String, List<SmallStep>>>> getStepsForTasks(List<String> taskIds) async {
+    final result = <String, List<SmallStep>>{};
+    for (final id in taskIds) {
+      result[id] = _steps.values
+          .where((s) => s.taskId == id)
+          .toList()
+        ..sort((a, b) => a.order.compareTo(b.order));
+    }
+    return AppSuccess(result);
+  }
+
+  @override
   Future<AppResult<SmallStep>> createStep(SmallStep step) async {
     _steps[step.id] = step;
     return AppSuccess(step);

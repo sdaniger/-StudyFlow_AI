@@ -64,7 +64,11 @@ final routerProvider = GoRouter(
                 final taskTitle = state.uri.queryParameters['title'] ?? 'Small Steps';
                 return MaterialPage(
                   key: state.pageKey,
-                  child: SmallStepsScreen(taskId: id, taskTitle: taskTitle),
+                  child: SmallStepsScreen(
+                    taskId: id,
+                    taskTitle: taskTitle,
+                    taskSubject: state.uri.queryParameters['subject'],
+                  ),
                 );
               },
             ),
