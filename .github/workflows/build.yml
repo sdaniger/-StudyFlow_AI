@@ -7,6 +7,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+
 jobs:
   analyze:
     runs-on: ubuntu-latest
@@ -89,3 +94,14 @@ jobs:
         with:
           name: macos-release
           path: build/macos/Build/Products/Release/
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: [build-web]
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
