@@ -190,11 +190,12 @@
   "smallStepsProgress": "進捗:",
   "smallStepsHint": "小さなステップを入力...",
   "smallStepsAdd": "追加",
-  "smallStepsEmpty": "まだステップがありません。タスクを分解しましょう！",
+  "smallStepsEmpty": "まだステップがありません。3つに分解してみましょう！",
   "smallStepsBreakDown": "分解する",
   "smallStepsAiSuggest": "AIに小さなステップを提案させる",
   "smallStepsAiBreakdown": "AIで分解",
   "smallStepsAdded": "タスクにステップを追加しました！",
+  "smallStepTileTooltip": "3つに分解",
 
   "taskBreakdownSuggestion": "このタスクを小さなステップに分解すると、より取り組みやすくなります。小さなステップが勢いを作ります！"
 }

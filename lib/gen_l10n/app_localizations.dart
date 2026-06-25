@@ -1112,7 +1112,7 @@ abstract class AppLocalizations {
   /// No description provided for @smallStepsEmpty.
   ///
   /// In en, this message translates to:
-  /// **'No steps yet. Break down your task!'**
+  /// **'No steps yet. Try breaking this task into 3 small steps!'**
   String get smallStepsEmpty;
 
   /// No description provided for @smallStepsBreakDown.
@@ -1138,6 +1138,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Steps added to task!'**
   String get smallStepsAdded;
+
+  /// No description provided for @smallStepTileTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Break into 3 steps'**
+  String get smallStepTileTooltip;
 
   /// No description provided for @taskBreakdownSuggestion.
   ///

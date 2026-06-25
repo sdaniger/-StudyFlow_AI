@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import 'glass_card.dart';
@@ -86,7 +87,7 @@ class TaskTile extends StatelessWidget {
               onPressed: onStepsTap,
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
-              tooltip: 'Small Steps',
+              tooltip: AppLocalizations.of(context)?.smallStepTileTooltip ?? 'Small Steps',
             ),
         ],
       ),

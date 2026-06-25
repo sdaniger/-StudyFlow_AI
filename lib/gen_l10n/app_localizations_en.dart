@@ -516,7 +516,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get smallStepsAdd => 'Add Step';
 
   @override
-  String get smallStepsEmpty => 'No steps yet. Break down your task!';
+  String get smallStepsEmpty => 'No steps yet. Try breaking this task into 3 small steps!';
 
   @override
   String get smallStepsBreakDown => 'Break Down';
@@ -529,6 +529,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get smallStepsAdded => 'Steps added to task!';
+
+  @override
+  String get smallStepTileTooltip => 'Break into 3 steps';
 
   @override
   String get taskBreakdownSuggestion => 'Break this task into small steps to make it more manageable. Small steps build momentum!';
