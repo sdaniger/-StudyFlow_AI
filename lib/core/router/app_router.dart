@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/tasks/presentation/screens/task_list_screen.dart';
@@ -128,7 +129,7 @@ class AppShell extends StatelessWidget {
         bottomNavigationBar: NavigationBar(
           selectedIndex: selectedIndex,
           onDestinationSelected: (index) => _onNavigate(context, index),
-          destinations: _destinations,
+          destinations: _destinations(context),
         ),
       );
     }
@@ -143,7 +144,7 @@ class AppShell extends StatelessWidget {
               labelType: screenType == ScreenType.desktop
                   ? NavigationRailLabelType.all
                   : NavigationRailLabelType.none,
-              destinations: _railDestinations,
+              destinations: _railDestinations(context),
             ),
             const VerticalDivider(width: 1),
             Expanded(child: child),
@@ -179,27 +180,33 @@ class AppShell extends StatelessWidget {
     }
   }
 
-  static const _destinations = <NavigationDestination>[
-    NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Home'),
-    NavigationDestination(icon: Icon(Icons.task_alt_outlined), selectedIcon: Icon(Icons.task_alt), label: 'Tasks'),
-    NavigationDestination(icon: Icon(Icons.timer_outlined), selectedIcon: Icon(Icons.timer), label: 'Focus'),
-    NavigationDestination(icon: Icon(Icons.checklist_outlined), selectedIcon: Icon(Icons.checklist), label: 'Habits'),
-    NavigationDestination(icon: Icon(Icons.auto_stories_outlined), selectedIcon: Icon(Icons.auto_stories), label: 'Review'),
-    NavigationDestination(icon: Icon(Icons.auto_awesome_outlined), selectedIcon: Icon(Icons.auto_awesome), label: 'AI'),
-    NavigationDestination(icon: Icon(Icons.calendar_month_outlined), selectedIcon: Icon(Icons.calendar_month), label: 'Calendar'),
-    NavigationDestination(icon: Icon(Icons.cloud_outlined), selectedIcon: Icon(Icons.cloud), label: 'Drive'),
-    NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: 'Settings'),
-  ];
+  static List<NavigationDestination> _destinations(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return [
+      NavigationDestination(icon: const Icon(Icons.home_outlined), selectedIcon: const Icon(Icons.home), label: l10n.navHome),
+      NavigationDestination(icon: const Icon(Icons.task_alt_outlined), selectedIcon: const Icon(Icons.task_alt), label: l10n.navTasks),
+      NavigationDestination(icon: const Icon(Icons.timer_outlined), selectedIcon: const Icon(Icons.timer), label: l10n.navFocus),
+      NavigationDestination(icon: const Icon(Icons.checklist_outlined), selectedIcon: const Icon(Icons.checklist), label: l10n.navHabits),
+      NavigationDestination(icon: const Icon(Icons.auto_stories_outlined), selectedIcon: const Icon(Icons.auto_stories), label: l10n.navReview),
+      NavigationDestination(icon: const Icon(Icons.auto_awesome_outlined), selectedIcon: const Icon(Icons.auto_awesome), label: l10n.navAI),
+      NavigationDestination(icon: const Icon(Icons.calendar_month_outlined), selectedIcon: const Icon(Icons.calendar_month), label: l10n.navCalendar),
+      NavigationDestination(icon: const Icon(Icons.cloud_outlined), selectedIcon: const Icon(Icons.cloud), label: l10n.navDrive),
+      NavigationDestination(icon: const Icon(Icons.settings_outlined), selectedIcon: const Icon(Icons.settings), label: l10n.navSettings),
+    ];
+  }
 
-  static const _railDestinations = <NavigationRailDestination>[
-    NavigationRailDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: Text('Home')),
-    NavigationRailDestination(icon: Icon(Icons.task_alt_outlined), selectedIcon: Icon(Icons.task_alt), label: Text('Tasks')),
-    NavigationRailDestination(icon: Icon(Icons.timer_outlined), selectedIcon: Icon(Icons.timer), label: Text('Focus')),
-    NavigationRailDestination(icon: Icon(Icons.checklist_outlined), selectedIcon: Icon(Icons.checklist), label: Text('Habits')),
-    NavigationRailDestination(icon: Icon(Icons.auto_stories_outlined), selectedIcon: Icon(Icons.auto_stories), label: Text('Review')),
-    NavigationRailDestination(icon: Icon(Icons.auto_awesome_outlined), selectedIcon: Icon(Icons.auto_awesome), label: Text('AI')),
-    NavigationRailDestination(icon: Icon(Icons.calendar_month_outlined), selectedIcon: Icon(Icons.calendar_month), label: Text('Calendar')),
-    NavigationRailDestination(icon: Icon(Icons.cloud_outlined), selectedIcon: Icon(Icons.cloud), label: Text('Drive')),
-    NavigationRailDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: Text('Settings')),
-  ];
+  static List<NavigationRailDestination> _railDestinations(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return [
+      NavigationRailDestination(icon: const Icon(Icons.home_outlined), selectedIcon: const Icon(Icons.home), label: Text(l10n.navHome)),
+      NavigationRailDestination(icon: const Icon(Icons.task_alt_outlined), selectedIcon: const Icon(Icons.task_alt), label: Text(l10n.navTasks)),
+      NavigationRailDestination(icon: const Icon(Icons.timer_outlined), selectedIcon: const Icon(Icons.timer), label: Text(l10n.navFocus)),
+      NavigationRailDestination(icon: const Icon(Icons.checklist_outlined), selectedIcon: const Icon(Icons.checklist), label: Text(l10n.navHabits)),
+      NavigationRailDestination(icon: const Icon(Icons.auto_stories_outlined), selectedIcon: const Icon(Icons.auto_stories), label: Text(l10n.navReview)),
+      NavigationRailDestination(icon: const Icon(Icons.auto_awesome_outlined), selectedIcon: const Icon(Icons.auto_awesome), label: Text(l10n.navAI)),
+      NavigationRailDestination(icon: const Icon(Icons.calendar_month_outlined), selectedIcon: const Icon(Icons.calendar_month), label: Text(l10n.navCalendar)),
+      NavigationRailDestination(icon: const Icon(Icons.cloud_outlined), selectedIcon: const Icon(Icons.cloud), label: Text(l10n.navDrive)),
+      NavigationRailDestination(icon: const Icon(Icons.settings_outlined), selectedIcon: const Icon(Icons.settings), label: Text(l10n.navSettings)),
+    ];
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../domain/entities/review_item.dart';
 import '../../domain/entities/review_status.dart';
 import '../../application/providers/review_providers.dart';
@@ -18,7 +19,7 @@ class ReviewScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Review'),
+        title: Text(AppLocalizations.of(context)!.reviewAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -35,12 +36,12 @@ class ReviewScreen extends ConsumerWidget {
                         size: 64, color: AppColors.primary.withAlpha(128)),
                     const SizedBox(height: AppSpacing.md),
                     Text(
-                      'No reviews for today',
+                      AppLocalizations.of(context)!.reviewEmptyTitle,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Text(
-                      'Complete tasks to create review schedules',
+                      AppLocalizations.of(context)!.reviewEmptySubtitle,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -67,12 +68,12 @@ class ReviewScreen extends ConsumerWidget {
             );
           }
           if (result is AppFailure<List<ReviewItem>>) {
-            return Center(child: Text('Error: ${result.error.message}'));
+            return Center(child: Text('${AppLocalizations.of(context)!.tasksError}${result.error.message}'));
           }
           return const SizedBox.shrink();
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Center(child: Text('Error: $error')),
+        error: (error, _) => Center(child: Text('${AppLocalizations.of(context)!.tasksError}$error')),
       ),
     );
   }
@@ -82,12 +83,12 @@ class ReviewScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('How well did you remember?'),
+        title: Text(AppLocalizations.of(context)!.reviewConfidenceTitle),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [1, 2, 3, 4, 5]
               .map((level) => ListTile(
-                    title: Text(_confidenceLabel(level)),
+                    title: Text(_confidenceLabel(level, ctx)),
                     leading: CircleAvatar(
                       backgroundColor: _confidenceColor(level),
                       child: Text('$level'),
@@ -105,18 +106,18 @@ class ReviewScreen extends ConsumerWidget {
     );
   }
 
-  String _confidenceLabel(int level) {
+  String _confidenceLabel(int level, BuildContext context) {
     switch (level) {
       case 1:
-        return 'Very Hard';
+        return AppLocalizations.of(context)!.reviewConfidenceVeryHard;
       case 2:
-        return 'Hard';
+        return AppLocalizations.of(context)!.reviewConfidenceHard;
       case 3:
-        return 'Medium';
+        return AppLocalizations.of(context)!.reviewConfidenceMedium;
       case 4:
-        return 'Easy';
+        return AppLocalizations.of(context)!.reviewConfidenceEasy;
       case 5:
-        return 'Very Easy';
+        return AppLocalizations.of(context)!.reviewConfidenceVeryEasy;
       default:
         return '';
     }

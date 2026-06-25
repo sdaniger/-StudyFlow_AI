@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../controllers/ai_planner_controller.dart';
 import '../../domain/entities/study_plan.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -26,6 +27,19 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
   bool _isLoading = false;
   StudyPlan? _plan;
 
+  Map<String, String> get _subjectEntries => {
+        'English': AppLocalizations.of(context)!.subjectEnglish,
+        'Mathematics': AppLocalizations.of(context)!.subjectMathematics,
+        'Physics': AppLocalizations.of(context)!.subjectPhysics,
+        'Other': AppLocalizations.of(context)!.subjectOther,
+      };
+
+  Map<String, String> get _difficultyEntries => {
+        'Beginner': AppLocalizations.of(context)!.aiPlannerDifficultyBeginner,
+        'Intermediate': AppLocalizations.of(context)!.aiPlannerDifficultyIntermediate,
+        'Advanced': AppLocalizations.of(context)!.aiPlannerDifficultyAdvanced,
+      };
+
   @override
   void dispose() {
     _goalController.dispose();
@@ -37,7 +51,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AI Study Planner'),
+        title: Text(AppLocalizations.of(context)!.aiPlannerAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -72,14 +86,14 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
                   ),
                   const SizedBox(width: AppSpacing.sm),
                   Text(
-                    'AI Study Plan Generator',
+                    AppLocalizations.of(context)!.aiPlannerCardTitle,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ],
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'Describe your study goal and AI will create a personalized plan.',
+                AppLocalizations.of(context)!.aiPlannerCardDescription,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
@@ -90,12 +104,12 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Study Goal', style: Theme.of(context).textTheme.titleMedium),
+              Text(AppLocalizations.of(context)!.aiPlannerFieldGoal, style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               TextField(
                 controller: _goalController,
-                decoration: const InputDecoration(
-                  hintText: 'e.g., Pass JLPT N3 in 3 months',
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context)!.aiPlannerHintGoal,
                 ),
                 maxLines: 3,
               ),
@@ -107,13 +121,13 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Subject', style: Theme.of(context).textTheme.titleMedium),
+              Text(AppLocalizations.of(context)!.aiPlannerFieldSubject, style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               DropdownButtonFormField<String>(
                 value: _selectedSubject,
-                decoration: const InputDecoration(hintText: 'Select subject'),
-                items: ['English', 'Mathematics', 'Physics', 'Other']
-                    .map((s) => DropdownMenuItem(value: s, child: Text(s)))
+                decoration: InputDecoration(hintText: AppLocalizations.of(context)!.aiPlannerHintSubject),
+                items: _subjectEntries.entries
+                    .map((e) => DropdownMenuItem(value: e.key, child: Text(e.value)))
                     .toList(),
                 onChanged: (v) => setState(() => _selectedSubject = v),
               ),
@@ -125,7 +139,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Daily Study Time',
+              Text(AppLocalizations.of(context)!.aiPlannerFieldDailyTime,
                   style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               Row(
@@ -138,12 +152,12 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
                       min: 15,
                       max: 480,
                       divisions: 31,
-                      label: '$_dailyMinutes min',
+                      label: '$_dailyMinutes ${AppLocalizations.of(context)!.aiPlannerMinLabel}',
                       onChanged: (v) =>
                           setState(() => _dailyMinutes = v.round()),
                     ),
                   ),
-                  Text('$_dailyMinutes min'),
+                  Text('$_dailyMinutes ${AppLocalizations.of(context)!.aiPlannerMinLabel}'),
                 ],
               ),
             ],
@@ -154,18 +168,18 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Difficulty',
+              Text(AppLocalizations.of(context)!.aiPlannerFieldDifficulty,
                   style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               Row(
-                children: ['Beginner', 'Intermediate', 'Advanced']
-                    .map((level) => Padding(
+                children: _difficultyEntries.entries
+                    .map((e) => Padding(
                           padding: const EdgeInsets.only(right: AppSpacing.sm),
                           child: ChoiceChip(
-                            label: Text(level),
-                            selected: _selectedDifficulty == level,
+                            label: Text(e.value),
+                            selected: _selectedDifficulty == e.key,
                             onSelected: (_) =>
-                                setState(() => _selectedDifficulty = level),
+                                setState(() => _selectedDifficulty = e.key),
                           ),
                         ))
                     .toList(),
@@ -178,13 +192,13 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Concerns / Notes',
+              Text(AppLocalizations.of(context)!.aiPlannerFieldNotes,
                   style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               TextField(
                 controller: _concernsController,
-                decoration: const InputDecoration(
-                  hintText: 'Any specific areas you want to focus on?',
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context)!.aiPlannerHintNotes,
                 ),
                 maxLines: 2,
               ),
@@ -193,7 +207,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
         ),
         const SizedBox(height: AppSpacing.xl),
         PrimaryActionButton(
-          label: _isLoading ? 'Generating...' : 'Generate Study Plan',
+          label: _isLoading ? AppLocalizations.of(context)!.aiPlannerButtonGenerating : AppLocalizations.of(context)!.aiPlannerButtonGenerate,
           icon: Icons.auto_awesome,
           isLoading: _isLoading,
           onPressed: _isLoading ? null : _handleGenerate,
@@ -218,7 +232,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
                       color: AppColors.success, size: 24),
                   const SizedBox(width: AppSpacing.sm),
                   Text(
-                    'Study Plan Generated',
+                    AppLocalizations.of(context)!.aiPlannerSuccessTitle,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: AppColors.success,
                         ),
@@ -254,7 +268,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
           ),
         ),
         const SizedBox(height: AppSpacing.md),
-        SectionHeader(title: "Today's Tasks"),
+        SectionHeader(title: AppLocalizations.of(context)!.aiPlannerSectionToday),
         ...(_plan!.todayTasks.map((t) => GlassContainer(
               margin: const EdgeInsets.only(bottom: AppSpacing.sm),
               child: Row(
@@ -267,7 +281,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
               ),
             ))),
         const SizedBox(height: AppSpacing.md),
-        SectionHeader(title: 'This Week'),
+        SectionHeader(title: AppLocalizations.of(context)!.aiPlannerSectionWeek),
         ...(_plan!.weeklyTasks.map((t) => GlassContainer(
               margin: const EdgeInsets.only(bottom: AppSpacing.sm),
               child: Row(
@@ -284,7 +298,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
           children: [
             Expanded(
               child: PrimaryActionButton(
-                label: 'Add to Tasks',
+                label: AppLocalizations.of(context)!.aiPlannerButtonAddTasks,
                 icon: Icons.add,
                 onPressed: () {
                   final controller = ref.read(aiPlannerControllerProvider);
@@ -292,7 +306,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
                     _plan!.todayTasks.map((t) => {'title': t}).toList(),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Tasks added!')),
+                    SnackBar(content: Text(AppLocalizations.of(context)!.aiPlannerTasksAdded)),
                   );
                 },
               ),
@@ -303,7 +317,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
         Center(
           child: TextButton(
             onPressed: () => setState(() => _plan = null),
-            child: const Text('Generate Again'),
+            child: Text(AppLocalizations.of(context)!.aiPlannerButtonGenerateAgain),
           ),
         ),
       ],
@@ -334,7 +348,7 @@ class _AiPlannerScreenState extends ConsumerState<AiPlannerScreen> {
     } else if (result is AppFailure<StudyPlan>) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${result.error.message}')),
+          SnackBar(content: Text('${AppLocalizations.of(context)!.tasksError}${result.error.message}')),
         );
       }
     }

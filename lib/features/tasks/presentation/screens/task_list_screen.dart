@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../application/providers/task_providers.dart';
 import '../controllers/task_controller.dart';
 import '../../domain/entities/task_status.dart';
@@ -19,7 +20,7 @@ class TaskListScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tasks'),
+        title: Text(AppLocalizations.of(context)!.tasksAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -36,12 +37,12 @@ class TaskListScreen extends ConsumerWidget {
                         size: 64, color: AppColors.primary.withAlpha(128)),
                     const SizedBox(height: AppSpacing.md),
                     Text(
-                      'No tasks yet',
+                      AppLocalizations.of(context)!.tasksEmptyTitle,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Text(
-                      'Add a task to get started',
+                      AppLocalizations.of(context)!.tasksEmptySubtitle,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -68,16 +69,16 @@ class TaskListScreen extends ConsumerWidget {
           }
           if (result is AppFailure<List<Task>>) {
             return Center(
-              child: Text('Error: ${result.error.message}'),
+              child: Text('${AppLocalizations.of(context)!.tasksError}${result.error.message}'),
             );
           }
-          return const Center(child: Text('Unexpected state'));
+          return Center(child: Text(AppLocalizations.of(context)!.tasksUnexpectedState));
         },
         loading: () => const Center(
           child: CircularProgressIndicator(),
         ),
         error: (error, _) => Center(
-          child: Text('Error: $error'),
+          child: Text('${AppLocalizations.of(context)!.tasksError}$error'),
         ),
       ),
       floatingActionButton: FloatingActionButton(

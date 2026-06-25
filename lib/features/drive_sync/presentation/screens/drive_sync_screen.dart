@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../controllers/drive_sync_controller.dart';
 import '../../domain/entities/drive_sync_status.dart';
 import '../../domain/entities/drive_backup_result.dart';
@@ -20,7 +21,7 @@ class DriveSyncScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Drive Sync'),
+        title: Text(AppLocalizations.of(context)!.driveAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -34,7 +35,7 @@ class DriveSyncScreen extends ConsumerWidget {
                 if (result is AppSuccess<DriveSyncStatus>) {
                   final status = result.data;
                   return DriveSyncStatusCard(
-                    status: status.statusMessage ?? 'Ready',
+                    status: status.statusMessage ?? AppLocalizations.of(context)!.driveStatusReady,
                     lastSynced: status.lastBackupAt?.toString(),
                     onBackup: () => _handleBackup(context, ref),
                     onRestore: () => _handleRestore(context, ref),
@@ -42,12 +43,12 @@ class DriveSyncScreen extends ConsumerWidget {
                 }
                 return const SizedBox.shrink();
               },
-              loading: () => const DriveSyncStatusCard(
-                status: 'Checking...',
+              loading: () => DriveSyncStatusCard(
+                status: AppLocalizations.of(context)!.driveStatusChecking,
                 isSyncing: true,
               ),
-              error: (_, __) => const DriveSyncStatusCard(
-                status: 'Error',
+              error: (_, __) => DriveSyncStatusCard(
+                status: AppLocalizations.of(context)!.driveStatusError,
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -61,21 +62,14 @@ class DriveSyncScreen extends ConsumerWidget {
                           color: AppColors.primary, size: 20),
                       const SizedBox(width: AppSpacing.sm),
                       Text(
-                        'About Google Drive Sync',
+                        AppLocalizations.of(context)!.driveSectionAbout,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),
                   const SizedBox(height: AppSpacing.md),
                   Text(
-                    'Your data is backed up to Google Drive appDataFolder.\n'
-                    'This folder is only accessible by this app and is not visible to users.\n\n'
-                    'Backup includes:\n'
-                    '- Tasks and study plans\n'
-                    '- Habits and logs\n'
-                    '- Review schedules\n'
-                    '- Pomodoro sessions\n'
-                    '- App settings',
+                    AppLocalizations.of(context)!.driveDescription,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
@@ -94,14 +88,14 @@ class DriveSyncScreen extends ConsumerWidget {
     if (result is AppSuccess<DriveBackupResult>) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Backup completed successfully!')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.driveBackupSuccess)),
         );
       }
       ref.invalidate(driveSyncStatusProvider);
     } else if (result is AppFailure<DriveBackupResult>) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Backup failed: ${result.error.message}')),
+          SnackBar(content: Text('${AppLocalizations.of(context)!.tasksError}${result.error.message}')),
         );
       }
     }
@@ -111,18 +105,18 @@ class DriveSyncScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Restore Data?'),
-        content: const Text(
-          'This will replace your current data with the backup. Continue?',
+        title: Text(AppLocalizations.of(context)!.driveRestoreTitle),
+        content: Text(
+          AppLocalizations.of(context)!.driveRestoreMessage,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.driveButtonCancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Restore'),
+            child: Text(AppLocalizations.of(context)!.driveButtonRestore),
           ),
         ],
       ),
@@ -139,8 +133,8 @@ class DriveSyncScreen extends ConsumerWidget {
           SnackBar(
             content: Text(
               result.data != null
-                  ? 'Data restored successfully!'
-                  : 'No backup found',
+                  ? AppLocalizations.of(context)!.driveRestoreSuccess
+                  : AppLocalizations.of(context)!.driveNoBackup,
             ),
           ),
         );
@@ -149,7 +143,7 @@ class DriveSyncScreen extends ConsumerWidget {
     } else if (result is AppFailure<AppBackupData?>) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Restore failed: ${result.error.message}')),
+          SnackBar(content: Text('${AppLocalizations.of(context)!.tasksError}${result.error.message}')),
         );
       }
     }

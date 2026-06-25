@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import 'glass_card.dart';
@@ -39,7 +40,7 @@ class AiSuggestionCard extends StatelessWidget {
               ),
               const SizedBox(width: AppSpacing.sm),
               Text(
-                'AI Suggestion',
+                AppLocalizations.of(context)!.aiSuggestionCardTitle,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: AppColors.accent,
                     ),
@@ -58,7 +59,7 @@ class AiSuggestionCard extends StatelessWidget {
               if (onDismiss != null)
                 TextButton(
                   onPressed: onDismiss,
-                  child: const Text('Dismiss'),
+                  child: Text(AppLocalizations.of(context)!.aiSuggestionDismiss),
                 ),
               const SizedBox(width: AppSpacing.sm),
               if (onApply != null)
@@ -67,7 +68,7 @@ class AiSuggestionCard extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.accent,
                   ),
-                  child: const Text('Apply'),
+                  child: Text(AppLocalizations.of(context)!.aiSuggestionApply),
                 ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../domain/entities/habit.dart';
 import '../../domain/entities/habit_log.dart';
 import '../../application/providers/habit_providers.dart';
@@ -44,7 +45,7 @@ class _HabitScreenState extends ConsumerState<HabitScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Habits'),
+        title: Text(AppLocalizations.of(context)!.habitsAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -65,12 +66,12 @@ class _HabitScreenState extends ConsumerState<HabitScreen> {
                               color: AppColors.primary.withAlpha(128)),
                           const SizedBox(height: AppSpacing.md),
                           Text(
-                            'No habits yet',
+                            AppLocalizations.of(context)!.habitsEmptyTitle,
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: AppSpacing.sm),
                           Text(
-                            'Create a habit to track',
+                            AppLocalizations.of(context)!.habitsEmptySubtitle,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
@@ -102,7 +103,7 @@ class _HabitScreenState extends ConsumerState<HabitScreen> {
               },
               loading: () =>
                   const Center(child: CircularProgressIndicator()),
-              error: (error, _) => Center(child: Text('Error: $error')),
+              error: (error, _) => Center(child: Text('${AppLocalizations.of(context)!.tasksError}$error')),
             ),
           ),
           GlassContainer(
@@ -111,13 +112,13 @@ class _HabitScreenState extends ConsumerState<HabitScreen> {
               children: [
                 TextField(
                   controller: _titleController,
-                  decoration: const InputDecoration(
-                    hintText: 'New habit name...',
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.habitsHintName,
                   ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 PrimaryActionButton(
-                  label: 'Add Habit',
+                  label: AppLocalizations.of(context)!.habitsButtonAdd,
                   onPressed: _handleAddHabit,
                 ),
               ],

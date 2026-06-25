@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../controllers/pomodoro_controller.dart';
 import '../../domain/entities/pomodoro_mode.dart';
 import '../../../../shared/widgets/pomodoro_timer_circle.dart';
@@ -18,7 +19,7 @@ class PomodoroScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pomodoro'),
+        title: Text(AppLocalizations.of(context)!.pomodoroAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -60,8 +61,8 @@ class PomodoroScreen extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildStat(context, 'Session', '${state.sessionCount}'),
-                    _buildStat(context, 'Focus', '${state.mode.defaultMinutes}m'),
+                    _buildStat(context, AppLocalizations.of(context)!.pomodoroStatSession, '${state.sessionCount}'),
+                    _buildStat(context, AppLocalizations.of(context)!.pomodoroStatFocus, '${state.mode.defaultMinutes}m'),
                   ],
                 ),
               ),

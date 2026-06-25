@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../domain/entities/task_priority.dart';
 import '../controllers/task_controller.dart';
 import '../../../../shared/widgets/glass_container.dart';
@@ -35,7 +36,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Task'),
+        title: Text(AppLocalizations.of(context)!.taskEditAppBarNew),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -48,12 +49,12 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Title', style: Theme.of(context).textTheme.titleMedium),
+                  Text(AppLocalizations.of(context)!.taskEditFieldTitle, style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: AppSpacing.sm),
                   TextField(
                     controller: _titleController,
-                    decoration: const InputDecoration(
-                      hintText: 'What do you want to study?',
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.taskEditHintTitle,
                     ),
                     maxLines: 2,
                   ),
@@ -65,13 +66,13 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Description',
+                  Text(AppLocalizations.of(context)!.taskEditFieldDescription,
                       style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: AppSpacing.sm),
                   TextField(
                     controller: _descriptionController,
-                    decoration: const InputDecoration(
-                      hintText: 'Add details...',
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.taskEditHintDescription,
                     ),
                     maxLines: 3,
                   ),
@@ -83,12 +84,12 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Subject', style: Theme.of(context).textTheme.titleMedium),
+                  Text(AppLocalizations.of(context)!.taskEditFieldSubject, style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: AppSpacing.sm),
                   DropdownButtonFormField<String>(
                     value: _selectedSubject,
-                    decoration: const InputDecoration(
-                      hintText: 'Select subject',
+                    decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)!.taskEditHintSubject,
                     ),
                     items: TaskConstants.defaultSubjects
                         .map((s) => DropdownMenuItem(value: s, child: Text(s)))
@@ -105,7 +106,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Priority',
+                  Text(AppLocalizations.of(context)!.taskEditFieldPriority,
                       style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: AppSpacing.sm),
                   Row(
@@ -131,7 +132,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Due Date',
+                  Text(AppLocalizations.of(context)!.taskEditFieldDueDate,
                       style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: AppSpacing.sm),
                   InkWell(
@@ -159,7 +160,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
                           Text(
                             _dueDate != null
                                 ? '${_dueDate!.year}/${_dueDate!.month}/${_dueDate!.day}'
-                                : 'Set due date',
+                                : AppLocalizations.of(context)!.taskEditPlaceholderDueDate,
                           ),
                         ],
                       ),
@@ -170,7 +171,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
             ),
             const SizedBox(height: AppSpacing.xl),
             PrimaryActionButton(
-              label: 'Create Task',
+              label: AppLocalizations.of(context)!.taskEditButtonCreate,
               icon: Icons.add,
               onPressed: _handleCreate,
             ),

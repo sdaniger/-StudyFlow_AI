@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import 'glass_card.dart';
@@ -70,7 +71,7 @@ class ReviewItemTile extends StatelessWidget {
                       const SizedBox(width: AppSpacing.sm),
                     ],
                     Text(
-                      '復習 $reviewCount 回目',
+                      AppLocalizations.of(context)!.reviewItemCount(reviewCount),
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],

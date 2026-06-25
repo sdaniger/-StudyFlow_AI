@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 
@@ -164,13 +165,13 @@ class _PomodoroTimerCircleState extends State<PomodoroTimerCircle>
   String get _modeLabel {
     switch (widget.mode) {
       case 'focus':
-        return 'FOCUS';
+        return AppLocalizations.of(context)!.pomodoroLabelFocus;
       case 'shortBreak':
-        return 'SHORT BREAK';
+        return AppLocalizations.of(context)!.pomodoroLabelShortBreak;
       case 'longBreak':
-        return 'LONG BREAK';
+        return AppLocalizations.of(context)!.pomodoroLabelLongBreak;
       default:
-        return 'FOCUS';
+        return AppLocalizations.of(context)!.pomodoroLabelFocus;
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import 'glass_card.dart';
@@ -46,7 +47,7 @@ class DriveSyncStatusCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Google Drive Sync',
+                      AppLocalizations.of(context)!.driveSyncCardTitle,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Text(
@@ -63,7 +64,7 @@ class DriveSyncStatusCard extends StatelessWidget {
           if (lastSynced != null) ...[
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'Last synced: $lastSynced',
+              '${AppLocalizations.of(context)!.driveSyncLastSynced}$lastSynced',
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
@@ -80,7 +81,7 @@ class DriveSyncStatusCard extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: isSyncing ? null : onBackup,
                   icon: const Icon(Icons.cloud_upload, size: 18),
-                  label: const Text('Backup'),
+                  label: Text(AppLocalizations.of(context)!.driveSyncButtonBackup),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                   ),
@@ -91,7 +92,7 @@ class DriveSyncStatusCard extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: isSyncing ? null : onRestore,
                   icon: const Icon(Icons.cloud_download, size: 18),
-                  label: const Text('Restore'),
+                  label: Text(AppLocalizations.of(context)!.driveSyncButtonRestore),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.primary,
                     side: const BorderSide(color: AppColors.primary),

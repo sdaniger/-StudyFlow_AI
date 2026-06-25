@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import 'glass_card.dart';
@@ -27,7 +28,7 @@ class CalendarEventDraftCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final timeFormat =
         '${startTime.hour.toString().padLeft(2, '0')}:${startTime.minute.toString().padLeft(2, '0')}'
-        ' - '
+        '${AppLocalizations.of(context)!.calendarTimeSeparator}'
         '${endTime.hour.toString().padLeft(2, '0')}:${endTime.minute.toString().padLeft(2, '0')}';
 
     return GlassCard(
@@ -72,12 +73,12 @@ class CalendarEventDraftCard extends StatelessWidget {
               if (onCancel != null)
                 TextButton(
                   onPressed: onCancel,
-                  child: const Text('Cancel'),
+                  child: Text(AppLocalizations.of(context)!.calendarButtonCancel),
                 ),
               if (onEdit != null)
                 TextButton(
                   onPressed: onEdit,
-                  child: const Text('Edit'),
+                  child: Text(AppLocalizations.of(context)!.calendarButtonEdit),
                 ),
               if (onRegister != null)
                 ElevatedButton(
@@ -85,7 +86,7 @@ class CalendarEventDraftCard extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                   ),
-                  child: const Text('Register'),
+                  child: Text(AppLocalizations.of(context)!.calendarButtonRegister),
                 ),
             ],
           ),

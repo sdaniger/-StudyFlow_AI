@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../shared/widgets/stat_card.dart';
@@ -22,7 +23,7 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('StudyFlow AI'),
+        title: Text(AppLocalizations.of(context)!.homeAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -34,14 +35,13 @@ class HomeScreen extends ConsumerWidget {
             _buildStatsRow(context, ref, todayTasksAsync),
             const SizedBox(height: AppSpacing.md),
             AiSuggestionCard(
-              suggestion:
-                  '今日は英単語の復習を先に終わらせると、午後の数学に集中しやすくなります。',
+              suggestion: AppLocalizations.of(context)!.homeAISuggestion,
             ),
             SectionHeader(
-              title: "Today's Tasks",
+              title: AppLocalizations.of(context)!.homeTodayTasks,
               trailing: TextButton(
                 onPressed: () => context.push('/tasks'),
-                child: const Text('View All'),
+                child: Text(AppLocalizations.of(context)!.homeViewAll),
               ),
             ),
             _buildTodayTasks(context, todayTasksAsync),
@@ -70,7 +70,7 @@ class HomeScreen extends ConsumerWidget {
       children: [
         Expanded(
           child: StatCard(
-            label: 'Today\'s Tasks',
+            label: AppLocalizations.of(context)!.homeTodayTasks,
             value: '$total',
             icon: Icons.task_alt,
             iconColor: AppColors.primary,
@@ -79,7 +79,7 @@ class HomeScreen extends ConsumerWidget {
         const SizedBox(width: AppSpacing.sm),
         Expanded(
           child: StatCard(
-            label: 'Completed',
+            label: AppLocalizations.of(context)!.homeStatCompleted,
             value: '$completed',
             icon: Icons.check_circle,
             iconColor: AppColors.success,
@@ -88,8 +88,8 @@ class HomeScreen extends ConsumerWidget {
         const SizedBox(width: AppSpacing.sm),
         Expanded(
           child: StatCard(
-            label: 'Focus Time',
-            value: '0m',
+            label: AppLocalizations.of(context)!.homeStatFocusTime,
+            value: AppLocalizations.of(context)!.homeStatFocusTimeDefault,
             icon: Icons.timer,
             iconColor: AppColors.warning,
           ),
@@ -112,7 +112,7 @@ class HomeScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
                 child: Center(
                   child: Text(
-                    'No tasks for today. Add one!',
+                    AppLocalizations.of(context)!.homeNoTasks,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),

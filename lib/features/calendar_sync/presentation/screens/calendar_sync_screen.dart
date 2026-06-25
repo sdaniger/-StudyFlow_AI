@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../controllers/calendar_sync_controller.dart';
 import '../../domain/entities/calendar_event_draft.dart';
 import '../../domain/entities/calendar_sync_result.dart';
@@ -26,7 +27,7 @@ class _CalendarSyncScreenState extends ConsumerState<CalendarSyncScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar Sync'),
+        title: Text(AppLocalizations.of(context)!.calendarAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -56,12 +57,12 @@ class _CalendarSyncScreenState extends ConsumerState<CalendarSyncScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Google Calendar',
+                          AppLocalizations.of(context)!.calendarListTileTitle,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: AppSpacing.xs),
                         Text(
-                          'Sync your tasks as calendar events',
+                          AppLocalizations.of(context)!.calendarListTileSubtitle,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
@@ -73,8 +74,8 @@ class _CalendarSyncScreenState extends ConsumerState<CalendarSyncScreen> {
             const SizedBox(height: AppSpacing.md),
             PrimaryActionButton(
               label: _isLoading
-                  ? 'Generating...'
-                  : 'Suggest Events from Tasks',
+                  ? AppLocalizations.of(context)!.calendarButtonGenerating
+                  : AppLocalizations.of(context)!.calendarButtonGenerate,
               icon: Icons.auto_awesome,
               isLoading: _isLoading,
               onPressed: _isLoading ? null : _handleSuggest,
@@ -82,7 +83,7 @@ class _CalendarSyncScreenState extends ConsumerState<CalendarSyncScreen> {
             const SizedBox(height: AppSpacing.lg),
             if (_drafts != null) ...[
               Text(
-                'Event Drafts',
+                AppLocalizations.of(context)!.calendarSectionDrafts,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: AppSpacing.md),
@@ -92,7 +93,7 @@ class _CalendarSyncScreenState extends ConsumerState<CalendarSyncScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(AppSpacing.lg),
                       child: Text(
-                        'No event drafts generated',
+                        AppLocalizations.of(context)!.calendarEmptyDrafts,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
@@ -124,7 +125,7 @@ class _CalendarSyncScreenState extends ConsumerState<CalendarSyncScreen> {
     } else if (result is AppFailure<List<CalendarEventDraft>>) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${result.error.message}')),
+          SnackBar(content: Text('${AppLocalizations.of(context)!.tasksError}${result.error.message}')),
         );
       }
     }
@@ -137,13 +138,13 @@ class _CalendarSyncScreenState extends ConsumerState<CalendarSyncScreen> {
     if (result is AppSuccess<CalendarSyncResult>) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Event registered successfully!')),
+          SnackBar(content: Text(AppLocalizations.of(context)!.calendarEventRegistered)),
         );
       }
     } else if (result is AppFailure<CalendarSyncResult>) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${result.error.message}')),
+          SnackBar(content: Text('${AppLocalizations.of(context)!.tasksError}${result.error.message}')),
         );
       }
     }
