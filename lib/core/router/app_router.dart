@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/tasks/presentation/screens/task_list_screen.dart';
 import '../../features/tasks/presentation/screens/task_edit_screen.dart';
+import '../../features/pomodoro/presentation/screens/pomodoro_screen.dart';
+import '../../features/habits/presentation/screens/habit_screen.dart';
+import '../../features/review/presentation/screens/review_screen.dart';
 
 class AppRouter {
   AppRouter._();
@@ -22,7 +26,7 @@ class AppRouter {
                 path: '/',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const _PlaceholderScreen('Home'),
+                  child: const HomeScreen(),
                 ),
               ),
               GoRoute(
@@ -54,21 +58,21 @@ class AppRouter {
                 path: '/pomodoro',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const _PlaceholderScreen('Pomodoro'),
+                  child: const PomodoroScreen(),
                 ),
               ),
               GoRoute(
                 path: '/habits',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const _PlaceholderScreen('Habits'),
+                  child: const HabitScreen(),
                 ),
               ),
               GoRoute(
                 path: '/review',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const _PlaceholderScreen('Review'),
+                  child: const ReviewScreen(),
                 ),
               ),
               GoRoute(
