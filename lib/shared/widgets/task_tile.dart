@@ -10,6 +10,7 @@ class TaskTile extends StatelessWidget {
   final bool isCompleted;
   final VoidCallback? onTap;
   final VoidCallback? onToggleComplete;
+  final VoidCallback? onStepsTap;
 
   const TaskTile({
     super.key,
@@ -19,6 +20,7 @@ class TaskTile extends StatelessWidget {
     this.isCompleted = false,
     this.onTap,
     this.onToggleComplete,
+    this.onStepsTap,
   });
 
   @override
@@ -76,6 +78,15 @@ class TaskTile extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
+            ),
+          const SizedBox(width: 4),
+          if (onStepsTap != null)
+            IconButton(
+              icon: const Icon(Icons.layers_outlined, size: 20),
+              onPressed: onStepsTap,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              tooltip: 'Small Steps',
             ),
         ],
       ),

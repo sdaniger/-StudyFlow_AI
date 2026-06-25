@@ -20,10 +20,11 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todayTasksAsync = ref.watch(todayTasksProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.homeAppBarTitle),
+        title: Text(l10n.homeAppBarTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -35,13 +36,24 @@ class HomeScreen extends ConsumerWidget {
             _buildStatsRow(context, ref, todayTasksAsync),
             const SizedBox(height: AppSpacing.md),
             AiSuggestionCard(
-              suggestion: AppLocalizations.of(context)!.homeAISuggestion,
+              suggestion: l10n.homeAISuggestion,
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            GlassCard(
+              onTap: () => context.push('/tasks'),
+              child: ListTile(
+                leading: const Icon(Icons.layers_outlined, color: AppColors.primary),
+                title: Text(l10n.smallStepsAppBar, style: Theme.of(context).textTheme.titleMedium),
+                subtitle: Text(l10n.taskBreakdownSuggestion, style: Theme.of(context).textTheme.bodySmall),
+                trailing: const Icon(Icons.chevron_right),
+                contentPadding: EdgeInsets.zero,
+              ),
             ),
             SectionHeader(
-              title: AppLocalizations.of(context)!.homeTodayTasks,
+              title: l10n.homeTodayTasks,
               trailing: TextButton(
                 onPressed: () => context.push('/tasks'),
-                child: Text(AppLocalizations.of(context)!.homeViewAll),
+                child: Text(l10n.homeViewAll),
               ),
             ),
             _buildTodayTasks(context, todayTasksAsync),
@@ -128,6 +140,7 @@ class HomeScreen extends ConsumerWidget {
                       priority: task.priority.label,
                       isCompleted: task.status == TaskStatus.done,
                       onTap: () => context.push('/tasks/${task.id}/edit'),
+                      onStepsTap: () => context.push('/tasks/${task.id}/steps?title=${Uri.encodeComponent(task.title)}'),
                     ))
                 .toList(),
           );

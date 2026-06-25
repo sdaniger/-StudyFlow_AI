@@ -502,4 +502,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorUnknown => 'Unknown error';
+
+  @override
+  String get smallStepsAppBar => 'Small Steps';
+
+  @override
+  String get smallStepsProgress => 'Progress:';
+
+  @override
+  String get smallStepsHint => 'Enter a small step...';
+
+  @override
+  String get smallStepsAdd => 'Add Step';
+
+  @override
+  String get smallStepsEmpty => 'No steps yet. Break down your task!';
+
+  @override
+  String get smallStepsBreakDown => 'Break Down';
+
+  @override
+  String get smallStepsAiSuggest => 'Let AI suggest small steps';
+
+  @override
+  String get smallStepsAiBreakdown => 'AI Breakdown';
+
+  @override
+  String get smallStepsAdded => 'Steps added to task!';
+
+  @override
+  String get taskBreakdownSuggestion => 'Break this task into small steps to make it more manageable. Small steps build momentum!';
 }

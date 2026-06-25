@@ -1084,6 +1084,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unknown error'**
   String get errorUnknown;
+
+  /// No description provided for @smallStepsAppBar.
+  ///
+  /// In en, this message translates to:
+  /// **'Small Steps'**
+  String get smallStepsAppBar;
+
+  /// No description provided for @smallStepsProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress:'**
+  String get smallStepsProgress;
+
+  /// No description provided for @smallStepsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a small step...'**
+  String get smallStepsHint;
+
+  /// No description provided for @smallStepsAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Step'**
+  String get smallStepsAdd;
+
+  /// No description provided for @smallStepsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No steps yet. Break down your task!'**
+  String get smallStepsEmpty;
+
+  /// No description provided for @smallStepsBreakDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Break Down'**
+  String get smallStepsBreakDown;
+
+  /// No description provided for @smallStepsAiSuggest.
+  ///
+  /// In en, this message translates to:
+  /// **'Let AI suggest small steps'**
+  String get smallStepsAiSuggest;
+
+  /// No description provided for @smallStepsAiBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Breakdown'**
+  String get smallStepsAiBreakdown;
+
+  /// No description provided for @smallStepsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps added to task!'**
+  String get smallStepsAdded;
+
+  /// No description provided for @taskBreakdownSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Break this task into small steps to make it more manageable. Small steps build momentum!'**
+  String get taskBreakdownSuggestion;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

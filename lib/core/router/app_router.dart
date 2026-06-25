@@ -5,6 +5,7 @@ import 'package:studyflow_ai/gen_l10n/app_localizations.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/tasks/presentation/screens/task_list_screen.dart';
 import '../../features/tasks/presentation/screens/task_edit_screen.dart';
+import '../../features/small_steps/presentation/screens/small_steps_screen.dart';
 import '../../features/pomodoro/presentation/screens/pomodoro_screen.dart';
 import '../../features/habits/presentation/screens/habit_screen.dart';
 import '../../features/review/presentation/screens/review_screen.dart';
@@ -54,6 +55,18 @@ final routerProvider = GoRouter(
                 key: state.pageKey,
                 child: const TaskEditScreen(),
               ),
+            ),
+            GoRoute(
+              path: ':id/steps',
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) {
+                final id = state.pathParameters['id']!;
+                final taskTitle = state.uri.queryParameters['title'] ?? 'Small Steps';
+                return MaterialPage(
+                  key: state.pageKey,
+                  child: SmallStepsScreen(taskId: id, taskTitle: taskTitle),
+                );
+              },
             ),
           ],
         ),

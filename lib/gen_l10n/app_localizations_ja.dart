@@ -502,4 +502,34 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get errorUnknown => '不明なエラー';
+
+  @override
+  String get smallStepsAppBar => 'スモールステップ';
+
+  @override
+  String get smallStepsProgress => '進捗:';
+
+  @override
+  String get smallStepsHint => '小さなステップを入力...';
+
+  @override
+  String get smallStepsAdd => '追加';
+
+  @override
+  String get smallStepsEmpty => 'まだステップがありません。タスクを分解しましょう！';
+
+  @override
+  String get smallStepsBreakDown => '分解する';
+
+  @override
+  String get smallStepsAiSuggest => 'AIに小さなステップを提案させる';
+
+  @override
+  String get smallStepsAiBreakdown => 'AIで分解';
+
+  @override
+  String get smallStepsAdded => 'タスクにステップを追加しました！';
+
+  @override
+  String get taskBreakdownSuggestion => 'このタスクを小さなステップに分解すると、より取り組みやすくなります。小さなステップが勢いを作ります！';
 }

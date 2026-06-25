@@ -189,5 +189,17 @@
   "errorCalendar": "Calendar API error",
   "errorDrive": "Drive API error",
   "errorNotification": "Notification error",
-  "errorUnknown": "Unknown error"
+  "errorUnknown": "Unknown error",
+
+  "smallStepsAppBar": "Small Steps",
+  "smallStepsProgress": "Progress:",
+  "smallStepsHint": "Enter a small step...",
+  "smallStepsAdd": "Add Step",
+  "smallStepsEmpty": "No steps yet. Break down your task!",
+  "smallStepsBreakDown": "Break Down",
+  "smallStepsAiSuggest": "Let AI suggest small steps",
+  "smallStepsAiBreakdown": "AI Breakdown",
+  "smallStepsAdded": "Steps added to task!",
+
+  "taskBreakdownSuggestion": "Break this task into small steps to make it more manageable. Small steps build momentum!"
 }
