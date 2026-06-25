@@ -8,6 +8,14 @@ class InMemoryHabitRepository implements HabitRepository {
   final _habits = <String, Habit>{};
   final _logs = <String, HabitLog>{};
 
+  InMemoryHabitRepository({List<Habit>? initialData}) {
+    if (initialData != null) {
+      for (final habit in initialData) {
+        _habits[habit.id] = habit;
+      }
+    }
+  }
+
   @override
   Future<AppResult<List<Habit>>> getAll() async {
     final active = _habits.values

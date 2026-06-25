@@ -5,9 +5,10 @@ import '../../domain/services/review_schedule_policy.dart';
 import '../usecases/create_review_items_for_task_usecase.dart';
 import '../usecases/complete_review_usecase.dart';
 import '../usecases/get_today_review_items_usecase.dart';
+import '../../../../core/sample_data/sample_data.dart';
 
 final reviewRepositoryProvider = Provider<ReviewRepository>((ref) {
-  return InMemoryReviewRepository();
+  return InMemoryReviewRepository(initialData: createSampleReviewItems());
 });
 
 final reviewSchedulePolicyProvider = Provider<ReviewSchedulePolicy>((ref) {

@@ -4,9 +4,10 @@ import '../../domain/repositories/habit_repository.dart';
 import '../usecases/create_habit_usecase.dart';
 import '../usecases/check_habit_usecase.dart';
 import '../usecases/calculate_habit_streak_usecase.dart';
+import '../../../../core/sample_data/sample_data.dart';
 
 final habitRepositoryProvider = Provider<HabitRepository>((ref) {
-  return InMemoryHabitRepository();
+  return InMemoryHabitRepository(initialData: createSampleHabits());
 });
 
 final createHabitUseCaseProvider = Provider<CreateHabitUseCase>((ref) {

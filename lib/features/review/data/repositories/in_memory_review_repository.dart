@@ -7,6 +7,14 @@ import '../../../../core/errors/app_error.dart';
 class InMemoryReviewRepository implements ReviewRepository {
   final _items = <String, ReviewItem>{};
 
+  InMemoryReviewRepository({List<ReviewItem>? initialData}) {
+    if (initialData != null) {
+      for (final item in initialData) {
+        _items[item.id] = item;
+      }
+    }
+  }
+
   @override
   Future<AppResult<List<ReviewItem>>> getAll() async {
     final active = _items.values
@@ -29,8 +37,7 @@ class InMemoryReviewRepository implements ReviewRepository {
         i.nextReviewAt.month,
         i.nextReviewAt.day,
       );
-      return !reviewDate.isAfter(today.add(const Duration(days: 1))) &&
-          !reviewDate.isBefore(today);
+      return !reviewDate.isAfter(today) && !reviewDate.isBefore(today);
     }).toList()
       ..sort((a, b) => a.nextReviewAt.compareTo(b.nextReviewAt));
 

@@ -7,6 +7,14 @@ import '../../../../core/errors/app_error.dart';
 class InMemoryTaskRepository implements TaskRepository {
   final _tasks = <String, Task>{};
 
+  InMemoryTaskRepository({List<Task>? initialData}) {
+    if (initialData != null) {
+      for (final task in initialData) {
+        _tasks[task.id] = task;
+      }
+    }
+  }
+
   @override
   Future<AppResult<List<Task>>> getAll() async {
     final active = _tasks.values

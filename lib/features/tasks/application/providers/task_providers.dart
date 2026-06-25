@@ -6,9 +6,10 @@ import '../usecases/update_task_usecase.dart';
 import '../usecases/delete_task_usecase.dart';
 import '../usecases/complete_task_usecase.dart';
 import '../usecases/get_today_tasks_usecase.dart';
+import '../../../../core/sample_data/sample_data.dart';
 
 final taskRepositoryProvider = Provider<TaskRepository>((ref) {
-  return InMemoryTaskRepository();
+  return InMemoryTaskRepository(initialData: createSampleTasks());
 });
 
 final createTaskUseCaseProvider = Provider<CreateTaskUseCase>((ref) {
