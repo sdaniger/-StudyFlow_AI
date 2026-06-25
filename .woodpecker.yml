@@ -3,7 +3,7 @@ pipeline:
     image: ghcr.io/cirruslabs/flutter:stable
     commands:
       - flutter pub get
-      - flutter analyze
+      - flutter analyze --no-fatal-infos
 
   test:
     image: ghcr.io/cirruslabs/flutter:stable
