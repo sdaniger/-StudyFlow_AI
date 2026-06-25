@@ -1,0 +1,128 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+// Forward declarations - screens will be implemented in features
+// ignore_for_file: prefer_const_constructors
+
+class AppRouter {
+  AppRouter._();
+
+  static final _rootNavigatorKey = GlobalKey<NavigatorState>();
+  static final _shellNavigatorKey = GlobalKey<NavigatorState>();
+
+  static GoRouter create() => GoRouter(
+        navigatorKey: _rootNavigatorKey,
+        initialLocation: '/',
+        routes: [
+          ShellRoute(
+            navigatorKey: _shellNavigatorKey,
+            builder: (context, state, child) => AppShell(child: child),
+            routes: [
+              GoRoute(
+                path: '/',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const _PlaceholderScreen('Home'),
+                ),
+              ),
+              GoRoute(
+                path: '/tasks',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const _PlaceholderScreen('Tasks'),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'new',
+                    pageBuilder: (context, state) => NoTransitionPage(
+                      key: state.pageKey,
+                      child: const _PlaceholderScreen('New Task'),
+                    ),
+                  ),
+                  GoRoute(
+                    path: ':id/edit',
+                    pageBuilder: (context, state) => NoTransitionPage(
+                      key: state.pageKey,
+                      child: const _PlaceholderScreen('Edit Task'),
+                    ),
+                  ),
+                ],
+              ),
+              GoRoute(
+                path: '/pomodoro',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const _PlaceholderScreen('Pomodoro'),
+                ),
+              ),
+              GoRoute(
+                path: '/habits',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const _PlaceholderScreen('Habits'),
+                ),
+              ),
+              GoRoute(
+                path: '/review',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const _PlaceholderScreen('Review'),
+                ),
+              ),
+              GoRoute(
+                path: '/ai-planner',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const _PlaceholderScreen('AI Planner'),
+                ),
+              ),
+              GoRoute(
+                path: '/calendar-sync',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const _PlaceholderScreen('Calendar Sync'),
+                ),
+              ),
+              GoRoute(
+                path: '/drive-sync',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const _PlaceholderScreen('Drive Sync'),
+                ),
+              ),
+              GoRoute(
+                path: '/settings',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child: const _PlaceholderScreen('Settings'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+}
+
+class AppShell extends StatelessWidget {
+  final Widget child;
+  const AppShell({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: child,
+    );
+  }
+}
+
+class _PlaceholderScreen extends StatelessWidget {
+  final String title;
+  const _PlaceholderScreen(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
+    );
+  }
+}
