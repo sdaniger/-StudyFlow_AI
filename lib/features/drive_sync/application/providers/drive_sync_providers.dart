@@ -1,0 +1,11 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../data/repositories/mock_drive_sync_repository.dart';
+import '../../domain/repositories/drive_sync_repository.dart';
+import '../../../../core/config/app_config.dart';
+
+final driveSyncRepositoryProvider = Provider<DriveSyncRepository>((ref) {
+  if (AppConfig.useMocks) {
+    return MockDriveSyncRepository();
+  }
+  return MockDriveSyncRepository();
+});

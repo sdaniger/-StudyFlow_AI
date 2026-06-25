@@ -7,6 +7,10 @@ import '../../features/tasks/presentation/screens/task_edit_screen.dart';
 import '../../features/pomodoro/presentation/screens/pomodoro_screen.dart';
 import '../../features/habits/presentation/screens/habit_screen.dart';
 import '../../features/review/presentation/screens/review_screen.dart';
+import '../../features/ai_planner/presentation/screens/ai_planner_screen.dart';
+import '../../features/calendar_sync/presentation/screens/calendar_sync_screen.dart';
+import '../../features/drive_sync/presentation/screens/drive_sync_screen.dart';
+import '../../features/settings/presentation/screens/settings_screen.dart';
 
 class AppRouter {
   AppRouter._();
@@ -79,28 +83,28 @@ class AppRouter {
                 path: '/ai-planner',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const _PlaceholderScreen('AI Planner'),
+                  child: const AiPlannerScreen(),
                 ),
               ),
               GoRoute(
                 path: '/calendar-sync',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const _PlaceholderScreen('Calendar Sync'),
+                  child: const CalendarSyncScreen(),
                 ),
               ),
               GoRoute(
                 path: '/drive-sync',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const _PlaceholderScreen('Drive Sync'),
+                  child: const DriveSyncScreen(),
                 ),
               ),
               GoRoute(
                 path: '/settings',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const _PlaceholderScreen('Settings'),
+                  child: const SettingsScreen(),
                 ),
               ),
             ],
@@ -121,14 +125,4 @@ class AppShell extends StatelessWidget {
   }
 }
 
-class _PlaceholderScreen extends StatelessWidget {
-  final String title;
-  const _PlaceholderScreen(this.title);
 
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
-    );
-  }
-}
