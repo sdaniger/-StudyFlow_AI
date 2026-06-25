@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-// Forward declarations - screens will be implemented in features
-// ignore_for_file: prefer_const_constructors
+import '../../features/tasks/presentation/screens/task_list_screen.dart';
+import '../../features/tasks/presentation/screens/task_edit_screen.dart';
 
 class AppRouter {
   AppRouter._();
@@ -29,21 +29,23 @@ class AppRouter {
                 path: '/tasks',
                 pageBuilder: (context, state) => NoTransitionPage(
                   key: state.pageKey,
-                  child: const _PlaceholderScreen('Tasks'),
+                  child: const TaskListScreen(),
                 ),
                 routes: [
                   GoRoute(
                     path: 'new',
-                    pageBuilder: (context, state) => NoTransitionPage(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    pageBuilder: (context, state) => MaterialPage(
                       key: state.pageKey,
-                      child: const _PlaceholderScreen('New Task'),
+                      child: const TaskEditScreen(),
                     ),
                   ),
                   GoRoute(
                     path: ':id/edit',
-                    pageBuilder: (context, state) => NoTransitionPage(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    pageBuilder: (context, state) => MaterialPage(
                       key: state.pageKey,
-                      child: const _PlaceholderScreen('Edit Task'),
+                      child: const TaskEditScreen(),
                     ),
                   ),
                 ],
