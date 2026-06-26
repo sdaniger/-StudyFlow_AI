@@ -172,6 +172,21 @@
   "settingsAppName": "StudyFlow AI",
   "settingsAppDescription": "AI-powered study assistant",
 
+  "settingsSectionAi": "AI",
+  "settingsApiKeyGemini": "Gemini API Key",
+  "settingsApiKeyOpenRouter": "OpenRouter API Key",
+  "settingsApiKeySave": "Save",
+  "settingsApiKeySaved": "API key saved!",
+
+  "quickTaskHint": "e.g. Study chapter 5 tomorrow for 2 hours",
+  "quickTaskAskAi": "Ask AI",
+  "quickTaskResult": "Created {count} tasks",
+  "@quickTaskResult": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+
   "aiSuggestionCardTitle": "AI Suggestion",
   "aiSuggestionDismiss": "Dismiss",
   "aiSuggestionApply": "Apply",

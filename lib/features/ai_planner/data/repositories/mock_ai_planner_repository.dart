@@ -45,8 +45,7 @@ class MockAiPlannerRepository implements AiPlannerRepository {
   }
 
   @override
-  Future<AppResult<List<Task>>> decomposeGoal(
-      GoalDecompositionRequest request) async {
+  Future<AppResult<List<Task>>> decomposeGoal(GoalDecompositionRequest request) async {
     await Future.delayed(const Duration(milliseconds: 500));
     final now = DateTime.now();
     return AppSuccess([
@@ -109,8 +108,7 @@ class MockAiPlannerRepository implements AiPlannerRepository {
   }
 
   @override
-  Future<AppResult<List<ScheduleSuggestion>>> suggestSchedule(
-      ScheduleSuggestionRequest request) async {
+  Future<AppResult<List<ScheduleSuggestion>>> suggestSchedule(ScheduleSuggestionRequest request) async {
     await Future.delayed(const Duration(milliseconds: 500));
     return AppSuccess([
       ScheduleSuggestion(
@@ -130,6 +128,24 @@ class MockAiPlannerRepository implements AiPlannerRepository {
         estimatedMinutes: 45,
         timeSlot: '14:00 - 14:45',
         reason: 'Afternoon is good for practice',
+      ),
+    ]);
+  }
+
+  @override
+  Future<AppResult<List<Task>>> suggestTasksFromText(String text) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    final now = DateTime.now();
+    return AppSuccess([
+      Task(
+        id: _uuid.v4(),
+        title: text,
+        status: TaskStatus.todo,
+        priority: TaskPriority.medium,
+        estimatedMinutes: 30,
+        createdByAi: true,
+        createdAt: now,
+        updatedAt: now,
       ),
     ]);
   }

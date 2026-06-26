@@ -167,6 +167,16 @@
   "settingsAppName": "StudyFlow AI",
   "settingsAppDescription": "AI搭載学習アシスタント",
 
+  "settingsSectionAi": "AI設定",
+  "settingsApiKeyGemini": "Gemini API キー",
+  "settingsApiKeyOpenRouter": "OpenRouter API キー",
+  "settingsApiKeySave": "保存",
+  "settingsApiKeySaved": "API キーを保存しました！",
+
+  "quickTaskHint": "例：明日2時間、第5章を勉強する",
+  "quickTaskAskAi": "AIに質問",
+  "quickTaskResult": "{count}件のタスクを作成しました",
+
   "aiSuggestionCardTitle": "AI提案",
   "aiSuggestionDismiss": "閉じる",
   "aiSuggestionApply": "適用",

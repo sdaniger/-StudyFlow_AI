@@ -456,6 +456,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsAppDescription => 'AI-powered study assistant';
 
   @override
+  String get settingsSectionAi => 'AI';
+
+  @override
+  String get settingsApiKeyGemini => 'Gemini API Key';
+
+  @override
+  String get settingsApiKeyOpenRouter => 'OpenRouter API Key';
+
+  @override
+  String get settingsApiKeySave => 'Save';
+
+  @override
+  String get settingsApiKeySaved => 'API key saved!';
+
+  @override
+  String get quickTaskHint => 'e.g. Study chapter 5 tomorrow for 2 hours';
+
+  @override
+  String get quickTaskAskAi => 'Ask AI';
+
+  @override
+  String quickTaskResult(Object count) {
+    return 'Created $count tasks';
+  }
+
+  @override
   String get aiSuggestionCardTitle => 'AI Suggestion';
 
   @override

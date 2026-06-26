@@ -989,6 +989,54 @@ abstract class AppLocalizations {
   /// **'AI-powered study assistant'**
   String get settingsAppDescription;
 
+  /// No description provided for @settingsSectionAi.
+  ///
+  /// In en, this message translates to:
+  /// **'AI'**
+  String get settingsSectionAi;
+
+  /// No description provided for @settingsApiKeyGemini.
+  ///
+  /// In en, this message translates to:
+  /// **'Gemini API Key'**
+  String get settingsApiKeyGemini;
+
+  /// No description provided for @settingsApiKeyOpenRouter.
+  ///
+  /// In en, this message translates to:
+  /// **'OpenRouter API Key'**
+  String get settingsApiKeyOpenRouter;
+
+  /// No description provided for @settingsApiKeySave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get settingsApiKeySave;
+
+  /// No description provided for @settingsApiKeySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'API key saved!'**
+  String get settingsApiKeySaved;
+
+  /// No description provided for @quickTaskHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Study chapter 5 tomorrow for 2 hours'**
+  String get quickTaskHint;
+
+  /// No description provided for @quickTaskAskAi.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask AI'**
+  String get quickTaskAskAi;
+
+  /// No description provided for @quickTaskResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Created {count} tasks'**
+  String quickTaskResult(Object count);
+
   /// No description provided for @aiSuggestionCardTitle.
   ///
   /// In en, this message translates to:

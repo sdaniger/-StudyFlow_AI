@@ -13,6 +13,7 @@ import '../../../tasks/application/providers/task_providers.dart';
 import '../../../tasks/domain/entities/task_status.dart';
 import '../../../tasks/domain/entities/task.dart';
 import '../../../small_steps/application/providers/small_step_providers.dart';
+import '../../../ai_planner/presentation/widgets/quick_task_input.dart';
 import '../../../../core/result/app_result.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -40,6 +41,8 @@ class HomeScreen extends ConsumerWidget {
               suggestion: l10n.homeAISuggestion,
             ),
             const SizedBox(height: AppSpacing.md),
+            const QuickTaskInput(),
+            const SizedBox(height: AppSpacing.sm),
             _buildStepProgressSummary(context, ref, todayTasksAsync),
             const SizedBox(height: AppSpacing.sm),
             GlassCard(

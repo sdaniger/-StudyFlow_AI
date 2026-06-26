@@ -12,4 +12,5 @@ abstract class AiPlannerRepository {
   Future<AppResult<List<ScheduleSuggestion>>> suggestSchedule(
     ScheduleSuggestionRequest request,
   );
+  Future<AppResult<List<Task>>> suggestTasksFromText(String text);
 }

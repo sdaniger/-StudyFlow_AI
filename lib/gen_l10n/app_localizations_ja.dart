@@ -456,6 +456,32 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsAppDescription => 'AI搭載学習アシスタント';
 
   @override
+  String get settingsSectionAi => 'AI設定';
+
+  @override
+  String get settingsApiKeyGemini => 'Gemini API キー';
+
+  @override
+  String get settingsApiKeyOpenRouter => 'OpenRouter API キー';
+
+  @override
+  String get settingsApiKeySave => '保存';
+
+  @override
+  String get settingsApiKeySaved => 'API キーを保存しました！';
+
+  @override
+  String get quickTaskHint => '例：明日2時間、第5章を勉強する';
+
+  @override
+  String get quickTaskAskAi => 'AIに質問';
+
+  @override
+  String quickTaskResult(Object count) {
+    return '$count件のタスクを作成しました';
+  }
+
+  @override
   String get aiSuggestionCardTitle => 'AI提案';
 
   @override
